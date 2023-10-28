@@ -11,3 +11,4 @@
 -created redux user
 -implemented signOUT
 -update profile API Call
+-protected routing
