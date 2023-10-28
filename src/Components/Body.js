@@ -20,24 +20,24 @@ const Body = () => {
     },
   ]);
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       const { uid, email, photoURL, displayName } = user;
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, photoURL, displayName } = user;
 
-  //       dispatch(
-  //         addUser({
-  //           uid: uid,
-  //           email: email,
-  //           displayName: displayName,
-  //           photoURL: photoURL,
-  //         })
-  //       );
-  //     } else {
-  //       dispatch(removeUser());
-  //     }
-  //   });
-  // }, []);
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+      } else {
+        dispatch(removeUser());
+      }
+    });
+  }, []);
 
   return (
     <>
