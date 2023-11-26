@@ -17,7 +17,6 @@ const VideoTitle = (props) => {
         pl={6}
         sx={{
           background: "linear-gradient( black, rgba(0,0,0,0))",
-          overFlow: "hidden",
         }}
       >
         <Box width={"30%"}>

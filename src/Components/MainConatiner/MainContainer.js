@@ -12,12 +12,8 @@ const MainContainer = () => {
   const mainMovie = moviesList[1];
   return (
     <>
-      <Box >
-        <Box>
-          <VideoTitle mainMovie={mainMovie} />
-          <VideoBackGround movieId={mainMovie?.id} />
-        </Box>
-      </Box>
+      <VideoTitle mainMovie={mainMovie} />
+      <VideoBackGround movieId={mainMovie?.id} />
     </>
   );
 };

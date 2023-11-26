@@ -10,9 +10,10 @@ const VideoBackGround = (props) => {
 
   return (
     <>
-      <Box
+      <div
         style={{
-          overflow: "hidden", // To hide any potential scrollbars
+          overflow: "hidden",
+          height: "100vh",
         }}
       >
         <iframe
@@ -20,10 +21,9 @@ const VideoBackGround = (props) => {
           src={`https://www.youtube.com/embed/${trailerKey?.key}?si=dsg_THkjcZe1iInJ&autoplay=1&mute=1`}
           title="YouTube video player"
           allow=" autoplay; clipboard-write;web-share"
-          
           allowFullScreen={true}
         ></iframe>
-      </Box>
+      </div>
     </>
   );
 };
