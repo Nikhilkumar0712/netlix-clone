@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../utlis/firebase";
 import { addUser, removeUser } from "../redux/userSlice";
 import CustomButton from "./Button/button";
+import { toggleGptSearchView } from "../redux/gptSlice";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { changeLanguage } from "../redux/configSlice";
 const Header = () => {
   const user = useSelector((state) => state.user);
 
@@ -46,6 +52,16 @@ const Header = () => {
       });
   };
 
+  const handleGPTSearch = () => {
+    dispatch(toggleGptSearchView(true));
+  };
+
+  const handleChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
+  const showGPTSearch = useSelector((store) => store?.gpt?.showGPTSearch);
+
   return (
     <>
       <Box
@@ -68,14 +84,36 @@ const Header = () => {
         />
         <Box pr={"20px"} zIndex={"1"}>
           {user?.uid && (
-            <CustomButton
-              title={"Sign Out"}
-              onClick={handleSignOut}
-              backgroundColor={"#fff"}
-              color={"black"}
-              fontSize={"14px"}
-              padding={"10px 24px"}
-            />
+            <Box display={"flex"} gap={"10px"}>
+              {showGPTSearch && (
+                <select
+                  name=""
+                  id=""
+                  style={{ width: "150px" }}
+                  onChange={handleChange}
+                >
+                  <option value="en">English</option>
+                  <option value="hindi">Hindhi</option>
+                </select>
+              )}
+
+              <CustomButton
+                title={"GPT Search"}
+                onClick={handleGPTSearch}
+                backgroundColor={"purple"}
+                color={"white"}
+                fontSize={"14px"}
+                padding={"5px 20px"}
+              />
+              <CustomButton
+                title={"Sign Out"}
+                onClick={handleSignOut}
+                backgroundColor={"#fff"}
+                color={"black"}
+                fontSize={"14px"}
+                padding={"5px 24px"}
+              />
+            </Box>
           )}
         </Box>
       </Box>

@@ -35,6 +35,8 @@ const CustomButton = (props) => {
           fontFamily: "Poppins-Regular",
           fontSize: fontSize,
           fontWeight: fontWeight,
+          textTransform: "none",
+          height:"fit-content"
         }}
       >
         {title}
