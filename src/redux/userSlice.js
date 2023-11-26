@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { current } from "immer";
+// import { current } from "immer";
 const slice = createSlice({
   name: "user",
-  initialState: {},
+  initialState: null,
   reducers: {
     addUser: (state, action) => {
       // console.log(current(state));
@@ -10,7 +10,7 @@ const slice = createSlice({
       return action.payload;
     },
     removeUser: (state, action) => {
-      return {};
+      return null;
     },
   },
 });

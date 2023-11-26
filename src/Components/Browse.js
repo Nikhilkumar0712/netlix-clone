@@ -1,33 +1,21 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import Header from "./Header";
+import useNowPlayingHook from "../hooks/useNowPlayingHook";
+import MainContainer from "./MainConatiner/MainContainer";
+import SecondaryContainer from "./SecondContainer/SecondaryContainer";
 import { Box } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { addUser, removeUser } from "../redux/userSlice";
-import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../utlis/firebase";
 const Browse = () => {
-  const dispatch = useDispatch();
+  useNowPlayingHook();
 
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        dispatch(removeUser());
-        navigate("/");
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
   return (
     <>
-      <Box display={"flex"} justifyContent={"end"} m={2}>
-        <Button variant="contained" onClick={handleLogout}>
-          Logout
-        </Button>
+      <Box >
+        <Box position={"relative"}>
+          <Header />
+          <Box  width={"100%"}>
+            <MainContainer />
+          </Box>
+        </Box>
       </Box>
     </>
   );
