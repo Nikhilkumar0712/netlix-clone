@@ -1,11 +1,59 @@
-import React from "react";
+import React, { useRef } from "react";
 import TextField from "@mui/material/TextField";
 import CustomButton from "../Button/button";
 import { Box } from "@mui/material";
 import lang from "../../utlis/langugaeConstants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import openai from "../../utlis/openAI";
+import { API_OPTIONS } from "../../utlis/constants";
+import { addGptMovies } from "../../redux/gptSlice";
 const GPTSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
+
+  const dispatch = useDispatch();
+
+  const searchText = useRef();
+
+  const searchTMBDMovie = (movie) => {
+    return fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${movie}&include_adult=false&language=en-US&page=1`,
+      API_OPTIONS
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        return data; // Assuming you want to return the data
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err; // Rethrow the error to be caught later
+      });
+  };
+
+  const handleGPTSearchClick = async () => {
+    try {
+      // Your existing code here
+      const gptQuery =
+        "Act as a movie recommendation system and suggest some query " +
+        searchText.current.value +
+        ". Only give me names of five movies, comma-separated like the example result given ahead. Example Result:Gadar, Don, Sholay, Golmal, Koi Mil Gaya";
+      const gptResults = await openai.chat.completions.create({
+        messages: [{ role: "user", content: gptQuery }],
+        model: "gpt-3.5-turbo",
+      });
+      const gptMovies = gptResults?.choices?.[0]?.message?.content?.split(",");
+
+      const data = gptMovies?.map((movie) => searchTMBDMovie(movie));
+
+      const tmbdResults = await Promise.all(data);
+
+      dispatch(
+        addGptMovies({ movieNames: gptMovies, movieResults: tmbdResults })
+      );
+    } catch (error) {
+      console.error("Error making OpenAI API request:", error.message);
+    }
+  };
   return (
     <>
       <Box
@@ -29,7 +77,7 @@ const GPTSearchBar = () => {
           padding={"10px"}
         >
           <form
-            action=""
+            onSubmit={(e) => e.preventDefault()}
             style={{
               width: "100%",
               display: "flex",
@@ -60,6 +108,7 @@ const GPTSearchBar = () => {
               }}
               autoComplete="off"
               placeholder={lang[langKey].gptSearchPlaceHolder}
+              inputRef={searchText}
             />
             <CustomButton
               title={lang[langKey].search}
@@ -67,6 +116,7 @@ const GPTSearchBar = () => {
               color={"white"}
               fontSize={"14px"}
               padding={"8px 24px"}
+              onClick={handleGPTSearchClick}
             />
           </form>
         </Box>

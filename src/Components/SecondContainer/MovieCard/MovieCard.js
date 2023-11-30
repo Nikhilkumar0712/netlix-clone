@@ -7,15 +7,17 @@ const MovieCard = (props) => {
 
   return (
     <>
-      <Box width={"100%"} display={"flex"} gap={"10px"}>
-        <img
-          src={IMG_CDN + allMovies?.poster_path}
-          style={{objectFit:"contain"}}
-          alt=""
-          width={"100%"}
-          height={"100%"}
-        />
-      </Box>
+      {allMovies?.poster_path && (
+        <Box width={"100%"} display={"flex"} gap={"10px"}>
+          <img
+            src={IMG_CDN + allMovies?.poster_path}
+            style={{ objectFit: "contain" }}
+            alt=""
+            width={"100%"}
+            height={"100%"}
+          />
+        </Box>
+      )}
     </>
   );
 };

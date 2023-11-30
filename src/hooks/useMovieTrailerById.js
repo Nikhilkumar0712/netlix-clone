@@ -21,7 +21,7 @@ const useMovieTrailerById = (props) => {
           (item) => item?.type === "Trailer"
         );
         const trailer = filteredTrailerData.length
-          ? filteredTrailerData?.[1]
+          ? filteredTrailerData?.[0]
           : data?.results[0];
 
         dispatch(addTrailerID(trailer));

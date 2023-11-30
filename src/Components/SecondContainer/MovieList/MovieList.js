@@ -28,6 +28,7 @@ const MovieList = (props) => {
       items: 1,
     },
   };
+
   return (
     <>
       <Box mt={"10px"}>

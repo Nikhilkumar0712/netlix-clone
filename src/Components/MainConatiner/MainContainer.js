@@ -9,7 +9,7 @@ const MainContainer = () => {
 
   if (!moviesList) return;
 
-  const mainMovie = moviesList[1];
+  const mainMovie = moviesList[0];
   return (
     <>
       <VideoTitle mainMovie={mainMovie} />
